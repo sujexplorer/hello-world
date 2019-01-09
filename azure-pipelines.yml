@@ -8,7 +8,12 @@ trigger:
 
 pool:
   vmImage: 'Ubuntu-16.04'
-
+  strategy:
+    matrix:
+      node_8_x:
+       node_version: 8.x
+      node_9_x:
+        node_version: 9.x
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -17,3 +22,9 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- script: npm install --only=dev
+
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '8.x' # replace this value with the version that you need for your project
